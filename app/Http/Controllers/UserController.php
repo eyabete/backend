@@ -37,6 +37,46 @@ class UserController extends Controller
         return $user;
     }
 
+    public function update(UserRequest $request, string $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $user -> name = $validated['name'];
+
+        $user -> save();
+
+        return $user;
+    }
+
+    public function email(UserRequest $request, string $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $user->email = $validated['email'];
+
+        $user->save();
+
+        return $user;
+    }
+
+    public function password(UserRequest $request, string $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $user->password = Hash::make($validated['password']);
+        $user->save();
+
+        return $user;
+    }
+
+
+
     public function delete(string $id)
     {
         $user = User::findOrfail($id);
